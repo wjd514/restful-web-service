@@ -3,11 +3,9 @@ package com.example.restfulwebservice.user;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.swing.text.html.parser.Entity;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -24,21 +22,21 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> retrieveAllUsers(){
+    public List<User2> retrieveAllUsers(){
         return service.findAll();
     }
 
     // GET /users/1 or /user/10 -> String
     @GetMapping("/users/{id}")
-    public EntityModel<User> retrieveUser(@PathVariable int id){
-        User user = service.findOne(id);
+    public EntityModel<User2> retrieveUser(@PathVariable int id){
+        User2 user2 = service.findOne(id);
 
-        if (user == null) {
+        if (user2 == null) {
             throw new UserNotFoundException(String.format("ID[%s] not found",id));
         }
 
         // Hateoas
-        EntityModel<User> resource = EntityModel.of(user);
+        EntityModel<User2> resource = EntityModel.of(user2);
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
 
         resource.add(linkTo.withRel("all-users"));
@@ -48,21 +46,21 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User savedUser = service.save(user);
+    public ResponseEntity<User2> createUser(@Valid @RequestBody User2 user2) {
+        User2 savedUser2 = service.save(user2);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(savedUser.getId())
+                .buildAndExpand(savedUser2.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable int id) {
-        User user = service.deleteById(id);
+        User2 user2 = service.deleteById(id);
 
-        if (user == null) {
+        if (user2 == null) {
             throw new UserNotFoundException(String.format("ID[%s] nnot found",id));
         }
     }

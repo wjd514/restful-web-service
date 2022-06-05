@@ -9,45 +9,45 @@ import java.util.List;
 
 @Service
 public class UserDaoService {
-    private  static final List<User> users = new ArrayList<>();
+    private  static final List<User2> USER_2s = new ArrayList<>();
 
     private static int usersCount = 3;
     static{
-        users.add(new User(1,"kennth", new Date(),"pass1","701010-1111111"));
-        users.add(new User(2,"Alice", new Date(),"pass2","801010-2222222"));
-        users.add(new User(3,"Elena", new Date(),"pass3","901010-1111111"));
+        USER_2s.add(new User2(1,"kennth", new Date(),"pass1","701010-1111111"));
+        USER_2s.add(new User2(2,"Alice", new Date(),"pass2","801010-2222222"));
+        USER_2s.add(new User2(3,"Elena", new Date(),"pass3","901010-1111111"));
     }
 
-    public List<User> findAll() {
-        return users;
+    public List<User2> findAll() {
+        return USER_2s;
     }
 
-    public User save(User user){
-        if(user.getId()==null){
-            user.setId(++usersCount);
+    public User2 save(User2 user2){
+        if(user2.getId()==null){
+            user2.setId(++usersCount);
         }
-        users.add(user);
-        return user;
+        USER_2s.add(user2);
+        return user2;
     }
 
-    public User findOne(int id){
-        for (User user : users){
-            if(user.getId() == id){
-                return user;
+    public User2 findOne(int id){
+        for (User2 user2 : USER_2s){
+            if(user2.getId() == id){
+                return user2;
             }
         }
         return null;
     }
 
-    public User deleteById(int id) {
-        Iterator<User> iterator = users.iterator();
+    public User2 deleteById(int id) {
+        Iterator<User2> iterator = USER_2s.iterator();
 
         while (iterator.hasNext()) {
-            User user = iterator.next();
+            User2 user2 = iterator.next();
 
-            if (user.getId() == id) {
+            if (user2.getId() == id) {
                 iterator.remove();
-                return user;
+                return user2;
             }
         }
         return null;
